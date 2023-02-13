@@ -3,10 +3,14 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import {useDispatch} from 'react-redux';
+import addTokenData from '../redux/actions/addTokenData';
 
 const Tokens = (props) => {
     const [tokens,setTokens] = useState([]);
     const params = useParams();
+
+    const dispatch = useDispatch();
     // console.log("Params",params);
     // console.log("props",props);
     useEffect(() => {
@@ -14,9 +18,10 @@ const Tokens = (props) => {
         .then((response) => {
             console.log("Response",response.data.response);
             setTokens(response.data.response);
+            dispatch(addTokenData(response.data.response));
         })
     },[]);
-
+    console.log(tokens);
     return (
         <div className="tokenContainer">
             <table>
