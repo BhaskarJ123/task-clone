@@ -1,0 +1,25 @@
+.tokenContainer{
+    min-height: 89vh;
+}
+
+.tokenContainer table{
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 60vw;
+    border: 1px solid black;
+}
+
+.tokenContainer th{
+    border: 1px solid black;
+}
+
+.tokenContainer td{
+    border: 1px solid black;
+}
+
+table button{
+    border-radius: 10px;
+    border: none;
+    background-color: lightblue;
+}

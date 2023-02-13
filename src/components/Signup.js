@@ -36,19 +36,17 @@ const Signup = (props) => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
-            axios.get('http://18.179.112.126:3000/users')
-            .then((response) => {
-                console.log("Response",response);
-                console.log("Data",data);
-                let loginUserData = response.data.filter((user) => {
-                    return user.email === email && user.password === password;
-                });
-                if(loginUserData.length !== 0){
-                    setUserDetails(loginUserData);
-                    dispatch(addUserData(loginUserData[0]));
-                } else {
-                    setUserDetails([null]);
-                }
+            axios.post('http://18.179.112.126:5000/login', {
+                email: email,
+                password: password
+              })
+              .then((response) => {
+                setUserDetails(response.data.response);
+                dispatch(addUserData(response.data.response[0]));
+                console.log(response.data.response);
+              })
+              .catch((error) => {
+                setUserDetails([null]);
             });
         } else {
             validateEmailData();

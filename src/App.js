@@ -3,9 +3,11 @@ import User from './components/User';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { useSelector } from 'react-redux';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
-
 import './App.css';
+import Tokens from './components/Tokens';
+import TokenDetails from './components/TokenDetails';
 
 function App() {
   const userData = useSelector((state) => {
@@ -21,9 +23,19 @@ function App() {
       {!isUserLoggedIn && <Signup handleLogin={handleLogin}/>}
       {isUserLoggedIn && 
         <div>
-          <Header userName={userData.name.firstname}/>
-          <User userData={userData}/>
-          <Footer />
+          <Router>
+            <Header userName={userData.name}/>
+            <Switch>
+              <Route path='/' exact>
+                <User userData={userData}/>
+              </Route>
+              <Route path='/tokens' exact>
+                <Tokens userID={userData.user_id} cardID={userData.id}/>
+              </Route>
+              <Route path='/tokens/:id' exact><TokenDetails /></Route>
+            </Switch>
+            <Footer />
+          </Router>
         </div>}
     </div>
   );
