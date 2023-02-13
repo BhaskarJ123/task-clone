@@ -1,0 +1,23 @@
+.headerContainer{
+    padding-left: 2vw;
+    padding-right: 2vw;
+    background-color: #eeeefd;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerContainer h1{
+    font-weight: 300;
+}
+
+.headerContainer a{
+    text-decoration: none;
+    color: black;
+}
+
+.headerContainer span{
+    font-size: 2.5vh;
+    font-weight: 300;
+}
