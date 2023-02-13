@@ -9,7 +9,7 @@ const userDataReducer = (state=initialState,action) => {
                 ...state,
                 user: [
                     ...state.user,
-                    action.payload
+                    ...action.payload
                 ]
         }
         default: 

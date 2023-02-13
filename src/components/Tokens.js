@@ -1,14 +1,16 @@
 import '../Tokens.css';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 const Tokens = (props) => {
     const [tokens,setTokens] = useState([]);
-
+    const params = useParams();
+    // console.log("Params",params);
+    // console.log("props",props);
     useEffect(() => {
-        axios.get(`http://18.179.112.126:5000/user/${props.userID}/card/${props.cardID}/tokens`)
+        axios.get(`http://18.179.112.126:5000/user/${props.userID}/card/${params.id}/tokens`)
         .then((response) => {
             console.log("Response",response.data.response);
             setTokens(response.data.response);

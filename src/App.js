@@ -29,8 +29,8 @@ function App() {
               <Route path='/' exact>
                 <User userData={userData}/>
               </Route>
-              <Route path='/tokens' exact>
-                <Tokens userID={userData.user_id} cardID={userData.id}/>
+              <Route path='/card/:id' exact>
+                <Tokens userID={userData.user_id}/>
               </Route>
               <Route path='/tokens/:id' exact><TokenDetails /></Route>
             </Switch>
