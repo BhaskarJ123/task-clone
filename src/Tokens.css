@@ -1,5 +1,38 @@
-.tokenContainer{
+.tokensPageContainer{
     min-height: 89vh;
+    display: flex;
+}
+
+.selectedCardContainer{
+    width: 30vw;
+    border-right: 1px solid rgba(128, 128, 128, 0.336);
+}
+
+.userTokenCard{
+    margin: 3vh;
+    height: 30vh;
+    width: 25vw;
+}
+
+.userTokenCard img{
+    height: 5vh;
+    width: 3vw;
+}
+
+.userTokenCard h3{
+    font-size: 2vh;
+}
+
+.userTokenCard p{
+    font-size: 1.5vh;
+}
+
+.tokenContainer{
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .tokenContainer table{
@@ -10,16 +43,61 @@
     border: 1px solid black;
 }
 
+.noTokensContainer{
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 3vh;
+}
+
+.noTokensContainer h2{
+    font-weight: 300;
+}
+
+.noTokensContainer button{
+    background-color: rgb(217, 217, 253);
+}
+
 .tokenContainer th{
     border: 1px solid black;
 }
 
 .tokenContainer td{
     border: 1px solid black;
+    padding: 2vh;
+    font-size: 1.8vh;
 }
 
 table button{
     border-radius: 10px;
     border: none;
-    background-color: lightblue;
+    background-color: rgb(63, 233, 63);
+    color: white;
 }
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #d2d2fc;
+    border-color: #d2d2fc transparent #d2d2fc transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -62,7 +62,7 @@
 
 .userCard{
     width: 30vw;
-    height: 30vh;
+    height: 35vh;
     border-radius: 30px;
     background-color:#323741;
     color: white;
@@ -75,6 +75,10 @@
 .cardTokens{
     display: flex;
     justify-content: space-between;
+}
+
+.cardTokens p{
+    padding-top: 1vh;
 }
 
 .cardDetails{
@@ -90,10 +94,23 @@
     color:#171A29;
 }
 
+.cardDetails h1{
+    font-weight: 300;
+}
+
 .userCard h3{
     font-weight: 500;
 }
 
 .cardTokens h3{
+    font-weight: 300;
+}
+
+.userCard img{
+    height: 9vh;
+    width: 5vw;
+}
+
+.userCard h3{
     font-weight: 300;
 }
