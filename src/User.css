@@ -67,10 +67,10 @@
 
 .userCard{
     width: 40vw;
-    height: 20vh;
+    height: 15vh;
     border-radius: 30px;
     box-shadow: 0.2vh 0.2vh 0.2vh 0.2vh;
-    background-color:rgba(182, 182, 216, 0.555);
+    background-color:rgba(181, 215, 248, 0.555);
     padding: 2vh;
     display: flex;
     flex-direction: column;
@@ -106,6 +106,6 @@
 
 .userCard:hover{
     width: 45vw;
-    height: 25vh;
+    height: 20vh;
     transition: width 0.5s, height 0.5s;
 }

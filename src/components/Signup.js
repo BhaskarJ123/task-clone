@@ -36,7 +36,7 @@ const Signup = (props) => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
-            axios.get('https://fakestoreapi.com/users')
+            axios.get('http://18.179.112.126:3000/users')
             .then((response) => {
                 let loginUserData = response.data.filter((user) => {
                     return user.email === email && user.password === password;
