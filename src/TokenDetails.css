@@ -20,6 +20,10 @@
     /* width: 30vw; */
 }
 
+.tokenDetailsContainer .tokenDetails button{
+    color: black;
+}
+
 .detailsToken{
     padding-right: 2vw;
 }
