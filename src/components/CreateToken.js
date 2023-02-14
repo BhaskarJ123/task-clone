@@ -25,8 +25,8 @@ const CreateToken = (props) => {
             case 'Ajio':
                 domainName = 'https://www.ajio.com';
                 break;
-            case 'Ajio':
-                domainName = 'https://www.croma.com/';
+            case 'Chroma':
+                domainName = 'https://www.croma.com';
                 break;
             default: domainName = '';
         }
