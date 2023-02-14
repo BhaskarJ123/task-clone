@@ -69,6 +69,17 @@
     background-color: rgb(217, 217, 253);
 }
 
+.tokenTableContainer .backButton{
+    background-color: rgb(217, 217, 253);
+    width: 6vw;
+}
+
+.tokenTableContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .tokenContainer th{
     border: 1px solid black;
 }

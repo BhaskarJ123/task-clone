@@ -79,45 +79,48 @@ const Tokens = (props) => {
                         <Link to='/'><button type="button" class="btn">Go Back</button></Link>
                     </div>}
                 {isAPILoaded && tokens.length > 0 && 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <h3>TOKENS</h3>
-                            </th>
-                            <th>
-                                <h3>DOMAIN</h3>
-                            </th>
-                            <th>
-                                <h3>STATUS</h3>
-                            </th>
-                            <th>
-                                <h3>ACTION</h3>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tokens.map((token) => {
-                            console.log("Token",token);
-                            return (
-                                <tr key={token.id}>
-                                    <td>
-                                        {token.token_number}
-                                    </td>
-                                    <td>
-                                        {getDomainName(token.domain_name)}
-                                    </td>
-                                    <td>
-                                        {token.status}
-                                    </td>
-                                    <td>
-                                        <Link to={`/tokens/${token.id}`}><button>Change Status</button></Link>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>}
+                <div className='tokenTableContainer'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h3>TOKENS</h3>
+                                </th>
+                                <th>
+                                    <h3>DOMAIN</h3>
+                                </th>
+                                <th>
+                                    <h3>STATUS</h3>
+                                </th>
+                                <th>
+                                    <h3>ACTION</h3>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tokens.map((token) => {
+                                console.log("Token",token);
+                                return (
+                                    <tr key={token.id}>
+                                        <td>
+                                            {token.token_number}
+                                        </td>
+                                        <td>
+                                            {getDomainName(token.domain_name)}
+                                        </td>
+                                        <td>
+                                            {token.status}
+                                        </td>
+                                        <td>
+                                            <Link to={`/tokens/${token.id}`}><button>Change Status</button></Link>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                    <Link to='/'><button type="button" class="btn backButton">Go Back</button></Link>
+                </div>}
             </div>
         </div>
     )
