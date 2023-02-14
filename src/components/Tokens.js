@@ -92,9 +92,6 @@ const Tokens = (props) => {
                                 <th>
                                     <h3>STATUS</h3>
                                 </th>
-                                <th>
-                                    <h3>ACTION</h3>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,16 +100,13 @@ const Tokens = (props) => {
                                 return (
                                     <tr key={token.id}>
                                         <td>
-                                            {token.token_number}
+                                            <Link to={`/tokens/${token.id}`}>{token.token_number}</Link>
                                         </td>
                                         <td>
                                             {getDomainName(token.domain_name)}
                                         </td>
                                         <td>
                                             {token.status}
-                                        </td>
-                                        <td>
-                                            <Link to={`/tokens/${token.id}`}><button>Change Status</button></Link>
                                         </td>
                                     </tr>
                                 )
