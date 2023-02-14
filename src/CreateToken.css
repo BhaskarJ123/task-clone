@@ -5,3 +5,10 @@
 .dropdown .tokenSites li:hover{
     background-color: rgba(219, 219, 219, 0.582);
 }
+
+.createTokenContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+}

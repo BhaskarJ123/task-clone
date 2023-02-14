@@ -52,7 +52,7 @@ const CreateToken = (props) => {
     }
 
     return (
-        <>
+        <div className='createTokenContainer'>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Create Token
@@ -76,7 +76,7 @@ const CreateToken = (props) => {
                 </ul>
             </div>
             <small>{createTokenMessage}</small>
-        </>
+        </div>
     )
 }
 
