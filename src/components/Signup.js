@@ -36,14 +36,14 @@ const Signup = (props) => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
-            axios.post('http://18.179.112.126:5000/login', {
+            axios.post('http://43.206.242.55:5000/login', {
                 email: email,
                 password: password
               })
               .then((response) => {
                 setUserDetails(response.data.response);
                 dispatch(addUserData(response.data.response));
-                console.log(response.data.response);
+                // console.log(response.data.response);
               })
               .catch((error) => {
                 setUserDetails([null]);

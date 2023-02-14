@@ -21,9 +21,9 @@ const Tokens = (props) => {
     // console.log("Params",params);
     // console.log("props",props);
     useEffect(() => {
-        axios.get(`http://18.179.112.126:5000/user/${props.userID}/card/${params.id}/tokens`)
+        axios.get(`http://43.206.242.55:5000/user/${props.userID}/card/${params.id}/tokens`)
         .then((response) => {
-            console.log("Response",response.data.response);
+            // console.log("Response",response.data.response);
             setTokens(response.data.response);
             setAPILoaded(true);
             dispatch(addTokenData(response.data.response));
@@ -32,7 +32,7 @@ const Tokens = (props) => {
             setAPILoaded(true);
         })
     },[]);
-    console.log(tokens);
+    // console.log(tokens);
     return (
         <div className='tokensPageContainer'>
             <div className='selectedCardContainer'>
