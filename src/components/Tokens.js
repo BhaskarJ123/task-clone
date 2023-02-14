@@ -17,7 +17,32 @@ const Tokens = (props) => {
 
     let selectedCard = userCards.find((userCard) => {
         return userCard.id === parseInt(params.id);
-    })
+    });
+
+    const getDomainName = (url) => {
+        let domainName = '';
+
+        switch(url){
+            case 'https://www.flipkart.com' : 
+                domainName = 'Flipkart';
+                break;
+            case 'https://www.croma.com' : 
+                domainName = 'Chroma';
+                break;
+            case 'https://www.amazon.in' : 
+                domainName = 'Amazon';
+                break;
+            case 'https://www.myntra.com' : 
+                domainName = 'Myntra';
+                break;
+            case 'https://www.ajio.com' : 
+                domainName = 'Ajio';
+                break;
+            default: domainName = '';
+        }
+
+        return domainName;
+    }
     // console.log("Params",params);
     // console.log("props",props);
     useEffect(() => {
@@ -36,6 +61,7 @@ const Tokens = (props) => {
     return (
         <div className='tokensPageContainer'>
             <div className='selectedCardContainer'>
+                <h1>CARD</h1>
                 <div className="userCard userTokenCard">
                     <img src="https://cdn-icons-png.flaticon.com/512/6404/6404078.png" alt="logo" />
                     <h3>XXXX-XXXX-XXXX-{selectedCard.card_number.substring(15)}</h3>
@@ -60,6 +86,9 @@ const Tokens = (props) => {
                                 <h3>TOKENS</h3>
                             </th>
                             <th>
+                                <h3>DOMAIN</h3>
+                            </th>
+                            <th>
                                 <h3>STATUS</h3>
                             </th>
                             <th>
@@ -69,16 +98,20 @@ const Tokens = (props) => {
                     </thead>
                     <tbody>
                         {tokens.map((token) => {
+                            console.log("Token",token);
                             return (
                                 <tr key={token.id}>
                                     <td>
                                         {token.token_number}
                                     </td>
                                     <td>
+                                        {getDomainName(token.domain_name)}
+                                    </td>
+                                    <td>
                                         {token.status}
                                     </td>
                                     <td>
-                                        <Link to={`/tokens/${token.id}`}><button>Get Details</button></Link>
+                                        <Link to={`/tokens/${token.id}`}><button>Change Status</button></Link>
                                     </td>
                                 </tr>
                             )
