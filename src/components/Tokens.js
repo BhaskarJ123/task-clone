@@ -96,7 +96,7 @@ const Tokens = (props) => {
                         </thead>
                         <tbody>
                             {tokens.map((token) => {
-                                console.log("Token",token);
+                                // console.log("Token",token);
                                 return (
                                     <tr key={token.id}>
                                         <td>

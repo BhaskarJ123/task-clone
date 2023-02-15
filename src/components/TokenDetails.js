@@ -46,7 +46,7 @@ const TokenDetails = () => {
     useEffect(() => {
         axios.get(`http://43.206.242.55:5000/tokenInfo/${parseInt(params.id)}`)
         .then((response) => {
-            console.log("Res",response.data.response);
+            // console.log("Res",response.data.response);
             setSelectedToken(response.data.response[0]);
             setTokenStatus(response.data.response[0].status);
             switch(response.data.response[0].domain_name){
@@ -75,7 +75,7 @@ const TokenDetails = () => {
     // });
     // console.log(selectedToken);
     // console.log(selectedToken);
-    console.log("Selected",selectedToken.status);
+    // console.log("Selected",selectedToken.status);
     return (
         <>
             <div className="tokenDetailsContainer">
