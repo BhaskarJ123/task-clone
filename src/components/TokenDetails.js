@@ -1,5 +1,4 @@
 import { useParams,Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import '../TokenDetails.css';
@@ -9,9 +8,6 @@ const TokenDetails = () => {
     const [selectedToken,setSelectedToken] = useState([]);
     const [tokenStatus,setTokenStatus] = useState('');
     const [domainName,setDomainName] = useState('');
-    // const tokens = useSelector((state) => {
-    //     return state.tokenDataReducer.tokens;
-    // });
 
     const handleSuspendToken = () => {
         axios.put(`http://43.206.242.55:5000/suspend/token/${selectedToken.id}`)
@@ -20,7 +16,7 @@ const TokenDetails = () => {
         })
         .catch((error) => {
             console.error(error);
-        })
+        });
     }
 
     const handleActivateToken = () => {
@@ -30,7 +26,7 @@ const TokenDetails = () => {
         })
         .catch((error) => {
             console.error(error);
-        })
+        });
     }
 
     const handleDeleteToken = () => {
@@ -40,13 +36,12 @@ const TokenDetails = () => {
         })
         .catch((error) => {
             console.error(error);
-        })
+        });
     }
 
     useEffect(() => {
         axios.get(`http://43.206.242.55:5000/tokenInfo/${parseInt(params.id)}`)
         .then((response) => {
-            // console.log("Res",response.data.response);
             setSelectedToken(response.data.response[0]);
             setTokenStatus(response.data.response[0].status);
             switch(response.data.response[0].domain_name){
@@ -68,14 +63,12 @@ const TokenDetails = () => {
                 default: setDomainName('');
             }
         })
+        .catch((err) => {
+            console.error(err);
+        });
+        
     },[]);
 
-    // let selectedToken = tokens.find((token) => {
-    //     return token.id === parseInt(params.id);
-    // });
-    // console.log(selectedToken);
-    // console.log(selectedToken);
-    // console.log("Selected",selectedToken.status);
     return (
         <>
             <div className="tokenDetailsContainer">
@@ -89,7 +82,7 @@ const TokenDetails = () => {
                         {tokenStatus === 'Active' && <button type="button" class="btn btn-warning" onClick={handleSuspendToken}>Suspend Token</button>}
                         {tokenStatus === 'Suspended' && <button type="button" class="btn btn-success" onClick={handleActivateToken}>Activate Token</button>}
                         {tokenStatus !== 'Deleted'&& <button type="button" class="btn btn-danger" onClick={handleDeleteToken}>Delete Token</button>}
-                        <Link to={`/card/${selectedToken.card_id}`}><button type="button" className="btn backButton">Back</button></Link>
+                        <Link to='/'><button type="button" className="btn backButton">Back</button></Link>
                     </div>
                 </>}
                 {selectedToken.length === 0 && <h1>Loading...</h1>}

@@ -1,15 +1,32 @@
 import '../User.css';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {Link} from 'react-router-dom';
-import CreateToken from './CreateToken';
+import UserCard from './UserCard';
+import Tokens from './Tokens';
 
 const User = (props) => {
     const userCards = useSelector((state) => {
         return state.userDataReducer.user
     });
-    // console.log("Props",props);
-    // console.log("Cards",userCards);
-    // console.log("CArds",userCards);
+
+    const [tokenFlag,setTokenFlag] = useState(false);
+    const [currentUserCard,setCurrentUserCard] = useState(userCards[0]);
+
+    const toggleTokenFlag = () => {
+        const toggledTokenFlag = tokenFlag === true ? false : true;
+        setTokenFlag(toggledTokenFlag);
+    }
+
+    const handleNextClick = () => {
+        const newIndex = userCards.indexOf(currentUserCard) + 1;
+        setCurrentUserCard(userCards[newIndex]);
+    }
+
+    const handlePreviousClick = () => {
+        const newIndex = userCards.indexOf(currentUserCard) - 1;
+        setCurrentUserCard(userCards[newIndex]);
+    }
+    
     return (
         <div className='userContainer'>
             <div className="userDetailsContainer">
@@ -24,20 +41,12 @@ const User = (props) => {
             </div>
             <div className="cardDetails">
                 <h1>CARDS</h1>
-                {userCards.map((userCard) => {
-                    return (
-                        <div className="userCard" key={userCard.id}>
-                            <img src = "https://cdn-icons-png.flaticon.com/512/6404/6404078.png" alt="logo"/>
-                            <h3>XXXX-XXXX-XXXX-{userCard.card_number.substring(15)}</h3>
-                            <CreateToken userID={props.userData.user_id} cardID={userCard.id}/>
-                            <div className='cardTokens'>
-                                <h3>{userCard.name_on_card.toUpperCase()}</h3>
-                                <p>VALID THRU: {userCard.exp_date}</p>
-                                <Link to={`card/${userCard.id}`}><button type="button" className="btn">Get Tokens</button></Link>
-                            </div>
-                        </div>
-                    )
-                })}
+                <div className='cardViewContainer'>
+                    <button type="button" class="btn navigateButtons" onClick={handlePreviousClick} disabled={userCards.indexOf(currentUserCard)<=0}>&laquo;</button>
+                    <UserCard userCardData={currentUserCard} toggleTokenFlag={toggleTokenFlag}/>
+                    <button type="button" class="btn navigateButtons" onClick={handleNextClick} disabled={userCards.indexOf(currentUserCard)>=userCards.length-1}>&raquo;</button>
+                </div>
+                <Tokens userID={currentUserCard.user_id} cardID={currentUserCard.id} tokenFlag={tokenFlag}/>
             </div>
         </div>
     )

@@ -12,3 +12,10 @@
     align-items: center;
     gap: 1vw;
 }
+
+.createTokenContainer .createTokens  button{
+    border-radius: 10px;
+    height: 4vh;
+    width: 8vw;
+    font-size: 1.8vh;
+}

@@ -1,5 +1,5 @@
 .userContainer{
-    min-height: 89vh;
+    height: 89vh;
     display: flex;
 }
 
@@ -79,6 +79,26 @@
 
 .cardTokens p{
     padding-top: 1vh;
+}
+
+.cardViewContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+    gap: 3vw;
+}
+
+.cardViewContainer button{
+    height: 9vh;
+    width: 5vw;
+    font-size: 5vh;
+    border-radius: 50%;
+    background-color: rgba(173, 173, 173, 0.527);
+}
+
+.cardViewContainer button:focus{
+    box-shadow: none;
 }
 
 .cardDetails{

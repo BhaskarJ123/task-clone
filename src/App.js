@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
 import './App.css';
-import Tokens from './components/Tokens';
 import TokenDetails from './components/TokenDetails';
 
 function App() {
@@ -28,9 +27,6 @@ function App() {
             <Switch>
               <Route path='/' exact>
                 <User userData={userData}/>
-              </Route>
-              <Route path='/card/:id' exact>
-                <Tokens userID={userData.user_id}/>
               </Route>
               <Route path='/tokens/:id' exact><TokenDetails /></Route>
             </Switch>

@@ -1,0 +1,5 @@
+.cardAndTokensContainer{
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+}

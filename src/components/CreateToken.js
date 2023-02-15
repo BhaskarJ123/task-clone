@@ -8,9 +8,6 @@ const CreateToken = (props) => {
     const [createTokenMessage,setCreateTokenMessage] = useState("");
 
     const handleSubmit = (siteName) => {
-        // console.log(siteName);
-        // console.log(props.userID);
-        // console.log(props.cardID);
         let domainName = '';
         switch(siteName) {
             case 'Flipkart' :
@@ -39,6 +36,7 @@ const CreateToken = (props) => {
                 setCreateTokenMessage("Token created successfully!");
                 setTimeout(() => {
                     setCreateTokenMessage("");
+                    props.toggleTokenFlag();
                 },2000);
               })
               .catch((error) => {
@@ -48,12 +46,11 @@ const CreateToken = (props) => {
                     setCreateTokenMessage("");
                 },2000);
             });
-        // console.log(domainName);
     }
 
     return (
         <div className='createTokenContainer'>
-            <div class="dropdown">
+            <div class="dropdown createTokens">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Create Token
                 </button>

@@ -1,23 +1,15 @@
 import '../Tokens.css';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import addTokenData from '../redux/actions/addTokenData';
 
 const Tokens = (props) => {
+
     const [tokens,setTokens] = useState([]);
     const [isAPILoaded,setAPILoaded] = useState(false);
-    const params = useParams();
-    const userCards = useSelector((state) => {
-        return state.userDataReducer.user
-    });
     const dispatch = useDispatch();
-
-    let selectedCard = userCards.find((userCard) => {
-        return userCard.id === parseInt(params.id);
-    });
 
     const getDomainName = (url) => {
         let domainName = '';
@@ -43,40 +35,34 @@ const Tokens = (props) => {
 
         return domainName;
     }
-    // console.log("Params",params);
-    // console.log("props",props);
+    
     useEffect(() => {
-        axios.get(`http://43.206.242.55:5000/user/${props.userID}/card/${params.id}/tokens`)
+        console.log(`http://43.206.242.55:5000/user/${props.userID}/card/${props.cardID}/tokens`);
+        setAPILoaded(false);
+        axios.get(`http://43.206.242.55:5000/user/${props.userID}/card/${props.cardID}/tokens`)
         .then((response) => {
-            // console.log("Response",response.data.response);
             setTokens(response.data.response);
             setAPILoaded(true);
             dispatch(addTokenData(response.data.response));
         })
         .catch((err) => {
+            setTokens([]);
             setAPILoaded(true);
         })
-    },[]);
-    // console.log(tokens);
+    },[props]);
+
     return (
         <div className='tokensPageContainer'>
-            <div className='selectedCardContainer'>
-                <h1>CARD</h1>
-                <div className="userCard userTokenCard">
-                    <img src="https://cdn-icons-png.flaticon.com/512/6404/6404078.png" alt="logo" />
-                    <h3>XXXX-XXXX-XXXX-{selectedCard.card_number.substring(15)}</h3>
-                    <div className='cardTokens'>
-                        <h3>{selectedCard.name_on_card.toUpperCase()}</h3>
-                        <p>VALID THRU: {selectedCard.exp_date}</p>
-                    </div>
-                </div>
-            </div>
             <div className="tokenContainer">
-                {!isAPILoaded && <div class="lds-dual-ring"></div>}
+                {!isAPILoaded && 
+                    <div className='fetchingTokensContainer'> 
+                        <h4>Fetching Tokens</h4>
+                        <div class="lds-dual-ring"></div>
+                    </div>
+                }
                 {isAPILoaded && tokens.length === 0 && 
                     <div className='noTokensContainer'>
                         <h2>No tokens available for this card.</h2>
-                        <Link to='/'><button type="button" class="btn">Go Back</button></Link>
                     </div>}
                 {isAPILoaded && tokens.length > 0 && 
                 <div className='tokenTableContainer'>
@@ -96,7 +82,6 @@ const Tokens = (props) => {
                         </thead>
                         <tbody>
                             {tokens.map((token) => {
-                                // console.log("Token",token);
                                 return (
                                     <tr key={token.id}>
                                         <td>
@@ -113,7 +98,6 @@ const Tokens = (props) => {
                             })}
                         </tbody>
                     </table>
-                    <Link to='/'><button type="button" class="btn backButton">Go Back</button></Link>
                 </div>}
             </div>
         </div>

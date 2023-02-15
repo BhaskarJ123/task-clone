@@ -43,7 +43,6 @@ const Signup = (props) => {
               .then((response) => {
                 setUserDetails(response.data.response);
                 dispatch(addUserData(response.data.response));
-                // console.log(response.data.response);
               })
               .catch((error) => {
                 setUserDetails([null]);
