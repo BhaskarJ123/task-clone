@@ -9,6 +9,7 @@ const CreateToken = (props) => {
 
     const handleSubmit = (siteName) => {
         let domainName = '';
+        
         switch(siteName) {
             case 'Flipkart' :
                 domainName = 'https://www.flipkart.com';
@@ -34,9 +35,9 @@ const CreateToken = (props) => {
               .then((response) => {
                 console.log(response);
                 setCreateTokenMessage("Token created successfully!");
+                props.toggleTokenFlag();
                 setTimeout(() => {
                     setCreateTokenMessage("");
-                    props.toggleTokenFlag();
                 },2000);
               })
               .catch((error) => {

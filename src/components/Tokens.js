@@ -37,7 +37,6 @@ const Tokens = (props) => {
     }
     
     useEffect(() => {
-        console.log(`http://43.206.242.55:5000/user/${props.userID}/card/${props.cardID}/tokens`);
         setAPILoaded(false);
         axios.get(`http://43.206.242.55:5000/user/${props.userID}/card/${props.cardID}/tokens`)
         .then((response) => {

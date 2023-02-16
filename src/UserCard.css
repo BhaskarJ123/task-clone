@@ -1,5 +1,12 @@
-.cardAndTokensContainer{
-    width: 40vw;
+.cardButtons{
     display: flex;
     flex-direction: column;
+    gap: 1.2vh;
+}
+
+.cardButtons button{
+    border-radius: 10px;
+    height: 4vh;
+    width: 8vw;
+    font-size: 1.8vh;
 }
