@@ -28,7 +28,6 @@ function App() {
               <Route path='/' exact>
                 <User userData={userData}/>
               </Route>
-              <Route path='/tokens/:id' exact><TokenDetails /></Route>
             </Switch>
             <Footer />
           </Router>

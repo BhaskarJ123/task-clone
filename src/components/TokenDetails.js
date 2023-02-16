@@ -1,4 +1,4 @@
-import { useParams,Link } from "react-router-dom";
+/*import { useParams,Link } from "react-router-dom"; //Component not required anymore
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import '../TokenDetails.css';
@@ -120,4 +120,4 @@ const TokenDetails = () => {
     )
 }
 
-export default TokenDetails;
+export default TokenDetails;*/

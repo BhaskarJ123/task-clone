@@ -10,7 +10,6 @@ const Tokens = (props) => {
     const [tokens,setTokens] = useState([]);
     const [isAPILoaded,setAPILoaded] = useState(false);
     const dispatch = useDispatch();
-
     const getDomainName = (url) => {
         let domainName = '';
 
@@ -35,6 +34,51 @@ const Tokens = (props) => {
 
         return domainName;
     }
+
+    const handleActivateToken = (tokenID) => {
+        axios.put(`http://43.206.242.55:5000/activate/token/${tokenID}`)
+        .then(() => {
+            const newTokens = [...tokens];
+            const tokenIndex = newTokens.findIndex((token) => {
+                return token.id === tokenID;
+            });
+            newTokens[tokenIndex].status = 'Active';
+            setTokens(newTokens);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+
+    const handleSuspendToken = (tokenID) => {
+        axios.put(`http://43.206.242.55:5000/suspend/token/${tokenID}`)
+        .then(() => {
+            const newTokens = [...tokens];
+            const tokenIndex = newTokens.findIndex((token) => {
+                return token.id === tokenID;
+            });
+            newTokens[tokenIndex].status = 'Suspended';
+            setTokens(newTokens);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+
+    const handleDeleteToken = (tokenID) => {
+        axios.put(`http://43.206.242.55:5000/delete/token/${tokenID}`)
+        .then(() => {
+            const newTokens = [...tokens];
+            const tokenIndex = newTokens.findIndex((token) => {
+                return token.id === tokenID;
+            });
+            newTokens.splice(tokenIndex,1);
+            setTokens(newTokens);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
     
     useEffect(() => {
         setAPILoaded(false);
@@ -47,7 +91,7 @@ const Tokens = (props) => {
         .catch((err) => {
             setTokens([]);
             setAPILoaded(true);
-        })
+        });
     },[props]);
 
     return (
@@ -74,8 +118,14 @@ const Tokens = (props) => {
                                 <th>
                                     <h3>DOMAIN</h3>
                                 </th>
-                                <th>
+                                <th className='statusColumn'>
                                     <h3>STATUS</h3>
+                                </th>
+                                <th className='actionColumn'>
+                                    <h3>ACTIVATE/SUSPEND</h3>
+                                </th>
+                                <th>
+                                    <h3>DELETE</h3>
                                 </th>
                             </tr>
                         </thead>
@@ -84,13 +134,26 @@ const Tokens = (props) => {
                                 return (
                                     <tr key={token.id}>
                                         <td>
-                                            <Link to={`/tokens/${token.id}`}>{token.token_number}</Link>
+                                            {token.token_number}
                                         </td>
                                         <td>
                                             {getDomainName(token.domain_name)}
                                         </td>
                                         <td>
                                             {token.status}
+                                        </td>
+                                        <td>
+                                            {token.status === 'Active' && <button type="button" class="btn" onClick={() => {
+                                                handleSuspendToken(token.id);
+                                            }}>Suspend</button>}
+                                            {token.status === 'Suspended' && <button type="button" class="btn" onClick={() => {
+                                                handleActivateToken(token.id);
+                                            }}>Activate</button>}
+                                        </td>
+                                        <td>
+                                            {token.status !== 'Deleted'&& <button type="button" class="btn" onClick={() => {
+                                                handleDeleteToken(token.id);
+                                            }}>Delete</button>}
                                         </td>
                                     </tr>
                                 )
