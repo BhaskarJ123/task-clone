@@ -1,15 +1,19 @@
 import '../Tokens.css';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import addTokenData from '../redux/actions/addTokenData';
+import {useCreateTokensMutation,useSuspendTokensMutation,useDeleteTokensMutation,useGetTokensQuery} from '../redux/services/users';
 
 const Tokens = (props) => {
 
     const [tokens,setTokens] = useState([]);
+    const [createTokens,createTokensResult] = useCreateTokensMutation();
+    const [suspendTokens,suspendTokensResult] = useSuspendTokensMutation();
+    const [deleteTokens,deleteTokensResult] = useDeleteTokensMutation();
     const [isAPILoaded,setAPILoaded] = useState(false);
     const dispatch = useDispatch();
+
     const getDomainName = (url) => {
         let domainName = '';
 
@@ -36,48 +40,15 @@ const Tokens = (props) => {
     }
 
     const handleActivateToken = (tokenID) => {
-        axios.put(`http://43.206.242.55:5000/activate/token/${tokenID}`)
-        .then(() => {
-            const newTokens = [...tokens];
-            const tokenIndex = newTokens.findIndex((token) => {
-                return token.id === tokenID;
-            });
-            newTokens[tokenIndex].status = 'Active';
-            setTokens(newTokens);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+        createTokens(tokenID);
     }
 
-    const handleSuspendToken = (tokenID) => {
-        axios.put(`http://43.206.242.55:5000/suspend/token/${tokenID}`)
-        .then(() => {
-            const newTokens = [...tokens];
-            const tokenIndex = newTokens.findIndex((token) => {
-                return token.id === tokenID;
-            });
-            newTokens[tokenIndex].status = 'Suspended';
-            setTokens(newTokens);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    const handleSuspendToken = (tokenID) => {   
+        suspendTokens(tokenID);
     }
 
     const handleDeleteToken = (tokenID) => {
-        axios.put(`http://43.206.242.55:5000/delete/token/${tokenID}`)
-        .then(() => {
-            const newTokens = [...tokens];
-            const tokenIndex = newTokens.findIndex((token) => {
-                return token.id === tokenID;
-            });
-            newTokens.splice(tokenIndex,1);
-            setTokens(newTokens);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+        deleteTokens(tokenID);
     }
     
     useEffect(() => {
@@ -92,7 +63,8 @@ const Tokens = (props) => {
             setTokens([]);
             setAPILoaded(true);
         });
-    },[props]);
+        // useGetTokensQuery(props.userID,props.cardID);
+    },[props,createTokensResult,suspendTokensResult,deleteTokensResult]);
 
     return (
         <div className='tokensPageContainer'>
