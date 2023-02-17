@@ -3,6 +3,8 @@ import validator from 'validator';
 import axios from 'axios';
 import '../Signup.css';
 import {useDispatch} from 'react-redux';
+import SignupInput from 'signup-inputbox-tokenisation';
+import SignupButton from 'signup-validatebutton-tokenisation';
 import addUserData from '../redux/actions/addUserData';
 
 const Signup = (props) => {
@@ -88,22 +90,23 @@ const Signup = (props) => {
                 <div className="signupFormContainer">
                     <h3>LOGIN</h3>
                     {!isUserValid && <small className='errorMessage'>Email or password incorrect</small>}
-                    <form className="loginForm" onSubmit={handleSubmit}>
+                    <form className="loginForm">
                         <div className="form-floating mb-4">
-                            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={email} onChange={(event) => {
+                            <SignupInput type="email" value={email} setInputValue={(event) => {
                                 setEmail(event.target.value);
                             }}/>
-                                {isValidEmail && <label htmlFor="floatingInput">Email address</label>}
-                                {!isValidEmail && <label htmlFor="floatingInput" className='errorMessage'>Enter valid email address</label>}
+                            {isValidEmail && <label htmlFor="floatingInput">Email address</label>}
+                            {!isValidEmail && <label htmlFor="floatingInput" className='errorMessage'>Enter valid email address</label>}
                         </div>
                         <div className="form-floating mb-5">
-                            <input type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} onChange={(event) => {
+                            <SignupInput type="password" value={password} setInputValue={(event) => {
                                 setPassword(event.target.value);
                             }}/>
-                               {!isPasswordEmpty && <label htmlFor="floatingPassword">Password</label>}
-                               {isPasswordEmpty && <label htmlFor="floatingPassword" className='errorMessage'>Password cannot be empty</label>}
+                            {!isPasswordEmpty && <label htmlFor="floatingPassword">Password</label>}
+                            {isPasswordEmpty && <label htmlFor="floatingPassword" className='errorMessage'>Password cannot be empty</label>}
                         </div>
-                        <button type="submit" className="btn">Login</button>
+                        {/* <button type="button" className="btn" onClick={handleSubmit}>Login</button> */}
+                        <SignupButton handleSubmit={handleSubmit} />
                     </form>
                 </div>
             </div>
