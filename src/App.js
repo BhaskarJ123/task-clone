@@ -6,17 +6,19 @@ import { useSelector } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
 import './App.css';
-import TokenDetails from './components/TokenDetails';
 
 function App() {
+
   const userData = useSelector((state) => {
-    return state.userDataReducer.user[0]
+    return state.user.users[0];
   });
+
   const [isUserLoggedIn,setUserLoggedIn] = useState(false);
 
   const handleLogin = () => {
     setUserLoggedIn(true);
   }
+
   return (
     <div className="App">
       {!isUserLoggedIn && <Signup handleLogin={handleLogin}/>}

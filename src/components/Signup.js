@@ -2,10 +2,13 @@ import {useState,useEffect, useRef} from 'react';
 import validator from 'validator';
 import axios from 'axios';
 import '../Signup.css';
+import { addUsers } from '../slices/users';
 import {useDispatch} from 'react-redux';
 import SignupInput from 'signup-inputbox-tokenisation';
 import SignupButton from 'signup-validatebutton-tokenisation';
 import addUserData from '../redux/actions/addUserData';
+import {useCreateLoginMutation} from '../services/users';
+import { compose } from 'redux';
 
 const Signup = (props) => {
 
@@ -13,18 +16,23 @@ const Signup = (props) => {
 
     const isInitialMountEmail = useRef(false);
     const isInitialMountPassword = useRef(false);
+    const isInitialMountLogin = useRef(false);
+
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [isValidEmail,setValidEmail] = useState(true);
     const [isPasswordEmpty,setPasswordEmpty] = useState(false);
     const [userDetails,setUserDetails] = useState([]);
     const [isUserValid,setUserValid] = useState(true);
+    const [createLogin,createLoginResult] = useCreateLoginMutation();
 
     const validateEmailData = () => {
         let emailValidFlag = validator.isEmail(email) ? true : false;
 
         setValidEmail(emailValidFlag);
     }
+
+    // console.log("Res",createLoginResult);
 
     const validatePasswordData = () => {
         if(password === ''){
@@ -34,21 +42,30 @@ const Signup = (props) => {
         }
     }
 
+    // console.log(createLoginResult);
     const handleSubmit = (event) => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
-            axios.post('http://43.206.242.55:5000/login', {
-                email: email,
-                password: password
-              })
-              .then((response) => {
-                setUserDetails(response.data.response);
-                dispatch(addUserData(response.data.response));
-              })
-              .catch((error) => {
-                setUserDetails([null]);
-            });
+            // axios.post('http://43.206.242.55:5000/login', {
+            //     email: email,
+            //     password: password
+            //   })
+            //   .then((response) => {
+            //     setUserDetails(response.data.response);
+            //     dispatch(addUserData(response.data.response));
+            //   })
+            //   .catch((error) => {
+            //     setUserDetails([null]);
+            // });
+            createLogin({email:email,password:password});
+            // if(createLoginResult.isSuccess){
+            //     console.log("Yes",);
+            //     setUserDetails(createLoginResult.data.response);
+            // } else {
+            //     console.log("No");
+            //     setUserDetails([null]);
+            // }
         } else {
             validateEmailData();
             validatePasswordData();
@@ -71,6 +88,20 @@ const Signup = (props) => {
             isInitialMountEmail.current = true;
         }
     },[email]);
+
+    useEffect(() => {
+        if(isInitialMountLogin.current){
+            if(createLoginResult.isSuccess === true){
+                setUserDetails(createLoginResult.data.response);
+                // console.log("UserDetails",createLoginResult.data.response);
+                dispatch(addUsers(createLoginResult.data.response))
+            } else if(createLoginResult.isError === true){
+                setUserDetails([null]);
+            }
+        } else {
+            isInitialMountLogin.current = true;
+        }
+    },[createLoginResult]);
 
     useEffect(() => {
         if(isInitialMountPassword.current){

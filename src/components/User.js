@@ -6,7 +6,7 @@ import Tokens from './Tokens';
 
 const User = (props) => {
     const userCards = useSelector((state) => {
-        return state.userDataReducer.user
+        return state.user.users;
     });
 
     const [tokenFlag,setTokenFlag] = useState(false);
