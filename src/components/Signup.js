@@ -1,14 +1,11 @@
 import {useState,useEffect, useRef} from 'react';
 import validator from 'validator';
-import axios from 'axios';
 import '../Signup.css';
-import { addUsers } from '../slices/users';
+import { addUsers } from '../redux/slices/users';
 import {useDispatch} from 'react-redux';
 import SignupInput from 'signup-inputbox-tokenisation';
 import SignupButton from 'signup-validatebutton-tokenisation';
-import addUserData from '../redux/actions/addUserData';
-import {useCreateLoginMutation} from '../services/users';
-import { compose } from 'redux';
+import {useCreateLoginMutation} from '../redux/services/users';
 
 const Signup = (props) => {
 
@@ -32,8 +29,6 @@ const Signup = (props) => {
         setValidEmail(emailValidFlag);
     }
 
-    // console.log("Res",createLoginResult);
-
     const validatePasswordData = () => {
         if(password === ''){
             setPasswordEmpty(true);
@@ -47,25 +42,7 @@ const Signup = (props) => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
-            // axios.post('http://43.206.242.55:5000/login', {
-            //     email: email,
-            //     password: password
-            //   })
-            //   .then((response) => {
-            //     setUserDetails(response.data.response);
-            //     dispatch(addUserData(response.data.response));
-            //   })
-            //   .catch((error) => {
-            //     setUserDetails([null]);
-            // });
             createLogin({email:email,password:password});
-            // if(createLoginResult.isSuccess){
-            //     console.log("Yes",);
-            //     setUserDetails(createLoginResult.data.response);
-            // } else {
-            //     console.log("No");
-            //     setUserDetails([null]);
-            // }
         } else {
             validateEmailData();
             validatePasswordData();
@@ -93,7 +70,6 @@ const Signup = (props) => {
         if(isInitialMountLogin.current){
             if(createLoginResult.isSuccess === true){
                 setUserDetails(createLoginResult.data.response);
-                // console.log("UserDetails",createLoginResult.data.response);
                 dispatch(addUsers(createLoginResult.data.response))
             } else if(createLoginResult.isError === true){
                 setUserDetails([null]);
