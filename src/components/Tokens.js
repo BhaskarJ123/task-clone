@@ -2,7 +2,6 @@ import '../Tokens.css';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
 import {useDispatch} from 'react-redux';
-import addTokenData from '../redux/actions/addTokenData';
 import {useCreateTokensMutation,useSuspendTokensMutation,useDeleteTokensMutation,useGetTokensQuery} from '../redux/services/users';
 
 const Tokens = (props) => {
@@ -57,7 +56,6 @@ const Tokens = (props) => {
         .then((response) => {
             setTokens(response.data.response);
             setAPILoaded(true);
-            dispatch(addTokenData(response.data.response));
         })
         .catch((err) => {
             setTokens([]);
