@@ -1,19 +1,18 @@
 import '../Tokens.css';
 import axios from 'axios';
+import React from 'react';
 import { useState,useEffect } from 'react';
-import {useDispatch} from 'react-redux';
-import {useCreateTokensMutation,useSuspendTokensMutation,useDeleteTokensMutation,useGetTokensQuery} from '../redux/services/users';
+import {useCreateTokensMutation,useSuspendTokensMutation,useDeleteTokensMutation} from '../redux/services/users';
 
-const Tokens = (props) => {
+const Tokens = (props:any) => {
 
     const [tokens,setTokens] = useState([]);
     const [createTokens,createTokensResult] = useCreateTokensMutation();
     const [suspendTokens,suspendTokensResult] = useSuspendTokensMutation();
     const [deleteTokens,deleteTokensResult] = useDeleteTokensMutation();
     const [isAPILoaded,setAPILoaded] = useState(false);
-    const dispatch = useDispatch();
 
-    const getDomainName = (url) => {
+    const getDomainName = (url:string) => {
         let domainName = '';
 
         switch(url){
@@ -38,15 +37,15 @@ const Tokens = (props) => {
         return domainName;
     }
 
-    const handleActivateToken = (tokenID) => {
+    const handleActivateToken = (tokenID: string|number) => {
         createTokens(tokenID);
     }
 
-    const handleSuspendToken = (tokenID) => {   
+    const handleSuspendToken = (tokenID: string|number) => {   
         suspendTokens(tokenID);
     }
 
-    const handleDeleteToken = (tokenID) => {
+    const handleDeleteToken = (tokenID: string|number) => {
         deleteTokens(tokenID);
     }
     
@@ -70,7 +69,7 @@ const Tokens = (props) => {
                 {!isAPILoaded && 
                     <div className='fetchingTokensContainer'> 
                         <h4>Fetching Tokens</h4>
-                        <div class="lds-dual-ring"></div>
+                        <div className="lds-dual-ring"></div>
                     </div>
                 }
                 {isAPILoaded && tokens.length === 0 && 
@@ -100,7 +99,7 @@ const Tokens = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {tokens.map((token) => {
+                            {tokens.map((token:any) => {
                                 return (
                                     <tr key={token.id}>
                                         <td>
@@ -113,15 +112,15 @@ const Tokens = (props) => {
                                             {token.status}
                                         </td>
                                         <td>
-                                            {token.status === 'Active' && <button type="button" class="btn" onClick={() => {
+                                            {token.status === 'Active' && <button type="button" className="btn" onClick={() => {
                                                 handleSuspendToken(token.id);
                                             }}>Suspend</button>}
-                                            {token.status === 'Suspended' && <button type="button" class="btn" onClick={() => {
+                                            {token.status === 'Suspended' && <button type="button" className="btn" onClick={() => {
                                                 handleActivateToken(token.id);
                                             }}>Activate</button>}
                                         </td>
                                         <td>
-                                            {token.status !== 'Deleted'&& <button type="button" class="btn" onClick={() => {
+                                            {token.status !== 'Deleted'&& <button type="button" className="btn" onClick={() => {
                                                 handleDeleteToken(token.id);
                                             }}>Delete</button>}
                                         </td>

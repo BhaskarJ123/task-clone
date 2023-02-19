@@ -1,12 +1,13 @@
 import CreateToken from './CreateToken';
 import { useState,useEffect} from 'react';
+import React from 'react';
 import '../UserCard.css';
 
-const UserCard = (props) => {
+const UserCard = (props:any) => {
     const [isCardNoHidden,setIsCardNoHidden] = useState(true);
 
     const toggleCardNumber = () => {
-        const isCardNoHiddenFlag = isCardNoHidden === true ? false : true;
+        const isCardNoHiddenFlag:boolean = isCardNoHidden === true ? false : true;
         setIsCardNoHidden(isCardNoHiddenFlag);
     }
 
@@ -21,8 +22,8 @@ const UserCard = (props) => {
                 {!isCardNoHidden && <h3>{props.userCardData.card_number}</h3>}
                 <div className='cardButtons'>
                     <CreateToken userID={props.userCardData.user_id} cardID={props.userCardData.id} toggleTokenFlag={props.toggleTokenFlag}/>
-                    {isCardNoHidden && <button type="button" class="btn btn-secondary" onClick={toggleCardNumber}>Show Card No</button>}
-                    {!isCardNoHidden && <button type="button" class="btn btn-secondary" onClick={toggleCardNumber}>Hide Card No</button>}
+                    {isCardNoHidden && <button type="button" className="btn btn-secondary" onClick={toggleCardNumber}>Show Card No</button>}
+                    {!isCardNoHidden && <button type="button" className="btn btn-secondary" onClick={toggleCardNumber}>Hide Card No</button>}
                 </div>
                 <div className='cardTokens'>
                     <h3>{props.userCardData.name_on_card.toUpperCase()}</h3>

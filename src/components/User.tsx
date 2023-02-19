@@ -1,11 +1,13 @@
 import '../User.css';
+import React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserCard from './UserCard';
 import Tokens from './Tokens';
 
-const User = (props) => {
-    const userCards = useSelector((state) => {
+const User = (props: { userData: { name: string; email: string; mobile: string}; }) => {
+    
+    const userCards = useSelector((state: any) => {
         return state.user.users;
     });
 
@@ -13,17 +15,17 @@ const User = (props) => {
     const [currentUserCard,setCurrentUserCard] = useState(userCards[0]);
 
     const toggleTokenFlag = () => {
-        const toggledTokenFlag = tokenFlag === true ? false : true;
+        const toggledTokenFlag:boolean = tokenFlag === true ? false : true;
         setTokenFlag(toggledTokenFlag);
     }
 
     const handleNextClick = () => {
-        const newIndex = userCards.indexOf(currentUserCard) + 1;
+        const newIndex:number = userCards.indexOf(currentUserCard) + 1;
         setCurrentUserCard(userCards[newIndex]);
     }
 
     const handlePreviousClick = () => {
-        const newIndex = userCards.indexOf(currentUserCard) - 1;
+        const newIndex:number = userCards.indexOf(currentUserCard) - 1;
         setCurrentUserCard(userCards[newIndex]);
     }
     
@@ -42,9 +44,9 @@ const User = (props) => {
             <div className="cardDetails">
                 <h1>CARDS</h1>
                 <div className='cardViewContainer'>
-                    <button type="button" class="btn navigateButtons" onClick={handlePreviousClick} disabled={userCards.indexOf(currentUserCard)<=0}>&laquo;</button>
+                    <button type="button" className="btn navigateButtons" onClick={handlePreviousClick} disabled={userCards.indexOf(currentUserCard)<=0}>&laquo;</button>
                     <UserCard userCardData={currentUserCard} toggleTokenFlag={toggleTokenFlag}/>
-                    <button type="button" class="btn navigateButtons" onClick={handleNextClick} disabled={userCards.indexOf(currentUserCard)>=userCards.length-1}>&raquo;</button>
+                    <button type="button" className="btn navigateButtons" onClick={handleNextClick} disabled={userCards.indexOf(currentUserCard)>=userCards.length-1}>&raquo;</button>
                 </div>
                 <Tokens userID={currentUserCard.user_id} cardID={currentUserCard.id} tokenFlag={tokenFlag}/>
             </div>

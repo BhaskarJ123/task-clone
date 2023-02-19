@@ -1,13 +1,14 @@
 import axios from 'axios';
 import {useState} from 'react';
 import '../CreateToken.css';
+import React from 'react';
 
 
-const CreateToken = (props) => {
+const CreateToken = (props: { userID: string; cardID: string; toggleTokenFlag: () => void; }) => {
 
     const [createTokenMessage,setCreateTokenMessage] = useState("");
 
-    const handleSubmit = (siteName) => {
+    const handleSubmit = (siteName:string) => {
         let domainName = '';
         
         switch(siteName) {
@@ -51,11 +52,11 @@ const CreateToken = (props) => {
 
     return (
         <div className='createTokenContainer'>
-            <div class="dropdown createTokens">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="dropdown createTokens">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Create Token
                 </button>
-                <ul class="dropdown-menu tokenSites" aria-labelledby="dropdownMenuButton1">
+                <ul className="dropdown-menu tokenSites" aria-labelledby="dropdownMenuButton1">
                     <li onClick={() => {
                         handleSubmit("Flipkart");
                     }}>Flipkart</li>

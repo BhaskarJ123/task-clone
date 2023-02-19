@@ -1,4 +1,5 @@
 import {createApi,fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import React from 'react';
 
 export const usersApi = createApi({
     reducerPath: 'usersApi',
@@ -29,10 +30,10 @@ export const usersApi = createApi({
                 method: 'PUT',
             })
         }),
-        getTokens: builder.query({
-            query: (userID,cardID) => `user/${userID}/card/${cardID}/tokens`
-        })
+        // getTokens: builder.query({
+        //     query: (userID: any,cardID: any) => `user/${userID}/card/${cardID}/tokens`
+        // })
     })
 })
 
-export const { useCreateLoginMutation, useCreateTokensMutation, useSuspendTokensMutation,useDeleteTokensMutation,useGetTokensQuery } = usersApi;
+export const { useCreateLoginMutation, useCreateTokensMutation, useSuspendTokensMutation,useDeleteTokensMutation } = usersApi;

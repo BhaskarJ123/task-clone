@@ -1,4 +1,5 @@
 import {useState,useEffect, useRef} from 'react';
+import React from 'react';
 import validator from 'validator';
 import '../Signup.css';
 import { addUsers } from '../redux/slices/users';
@@ -7,7 +8,7 @@ import SignupInput from 'signup-inputbox-tokenisation';
 import SignupButton from 'signup-validatebutton-tokenisation';
 import {useCreateLoginMutation} from '../redux/services/users';
 
-const Signup = (props) => {
+const Signup = (props:any) => {
 
     const dispatch = useDispatch();
 
@@ -23,13 +24,13 @@ const Signup = (props) => {
     const [isUserValid,setUserValid] = useState(true);
     const [createLogin,createLoginResult] = useCreateLoginMutation();
 
-    const validateEmailData = () => {
+    const validateEmailData = (): void => {
         let emailValidFlag = validator.isEmail(email) ? true : false;
 
         setValidEmail(emailValidFlag);
     }
 
-    const validatePasswordData = () => {
+    const validatePasswordData = () : void => {
         if(password === ''){
             setPasswordEmpty(true);
         } else {
@@ -38,7 +39,7 @@ const Signup = (props) => {
     }
 
     // console.log(createLoginResult);
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: { preventDefault: () => void; }): void => {
 
         event.preventDefault();
         if(email !== '' && password !== ''){
@@ -51,7 +52,7 @@ const Signup = (props) => {
     }
 
     useEffect(() => {
-        if(userDetails.length !== 0 && userDetails[0] !== null){
+        if(userDetails.length !== 0 && userDetails[0] !== undefined){
             props.handleLogin();
         } else if(userDetails[0] === null){
             setUserValid(false);
@@ -72,7 +73,7 @@ const Signup = (props) => {
                 setUserDetails(createLoginResult.data.response);
                 dispatch(addUsers(createLoginResult.data.response))
             } else if(createLoginResult.isError === true){
-                setUserDetails([null]);
+                setUserDetails([]);
             }
         } else {
             isInitialMountLogin.current = true;
@@ -99,14 +100,14 @@ const Signup = (props) => {
                     {!isUserValid && <small className='errorMessage'>Email or password incorrect</small>}
                     <form className="loginForm">
                         <div className="form-floating mb-4">
-                            <SignupInput type="email" value={email} setInputValue={(event) => {
+                            <SignupInput type="email" value={email} setInputValue={(event: { target: { value: React.SetStateAction<string>; }; }) => {
                                 setEmail(event.target.value);
                             }}/>
                             {isValidEmail && <label htmlFor="floatingInput">Email address</label>}
                             {!isValidEmail && <label htmlFor="floatingInput" className='errorMessage'>Enter valid email address</label>}
                         </div>
                         <div className="form-floating mb-5">
-                            <SignupInput type="password" value={password} setInputValue={(event) => {
+                            <SignupInput type="password" value={password} setInputValue={(event: { target: { value: React.SetStateAction<string>; }; }) => {
                                 setPassword(event.target.value);
                             }}/>
                             {!isPasswordEmpty && <label htmlFor="floatingPassword">Password</label>}

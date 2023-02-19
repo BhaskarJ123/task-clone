@@ -1,7 +1,9 @@
 import '../Header.css';
 import {Link} from 'react-router-dom';
-const Header = (props) => {
-    let userFirstName = props.userName.substring(0,1).toUpperCase() + props.userName.substring(1);
+import React from 'react';
+
+const Header = (props: { userName: string; }) => {
+    let userFirstName:string = props.userName.substring(0,1).toUpperCase() + props.userName.substring(1);
     return (
         <div>
             <ul className="nav headerContainer">

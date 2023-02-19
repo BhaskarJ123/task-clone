@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import React from "react";
 
-const initialState = {
+const initialState : {users:any[]} = {
     users: []
 }
 

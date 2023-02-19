@@ -5,17 +5,18 @@ import Footer from './components/Footer';
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
+import React from 'react';
 import './App.css';
 
 function App() {
 
-  const userData = useSelector((state) => {
+  const userData:any = useSelector((state:any) => {
     return state.user.users[0];
   });
 
   const [isUserLoggedIn,setUserLoggedIn] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = ():void  => {
     setUserLoggedIn(true);
   }
 
