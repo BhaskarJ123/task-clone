@@ -4,8 +4,10 @@ import validator from "validator";
 import "../Signup.css";
 import { addUsers } from "../redux/slices/users";
 import { useDispatch } from "react-redux";
-import SignupInput from "signup-inputbox-tokenisation";
-import SignupButton from "signup-validatebutton-tokenisation";
+// import SignupInput from "signup-inputbox-tokenisation";
+import SignupInput from '@bhaskarj123/input-github';
+// import SignupButton from "signup-validatebutton-tokenisation";
+import SignupButton from "@bhaskarj123/button-github";
 import { useCreateLoginMutation } from "../redux/services/users";
 
 const Signup = (props: any) => {
