@@ -2,9 +2,20 @@ import "../Header.css";
 import { Link } from "react-router-dom";
 import React from "react";
 
-const Header = (props: { userName: string }) => {
-  let userFirstName: string =
-    props.userName.substring(0, 1).toUpperCase() + props.userName.substring(1);
+const Header = () => {
+
+  const userDataString: string|null = localStorage.getItem("UserData");
+  let userName :string = '';
+
+  if(userDataString !== null){
+    const userData: any[] = JSON.parse(userDataString);
+    userName = userData[0].name.substring(0, 1).toUpperCase() + userData[0].name.substring(1);
+  }
+
+  const handleLogout = () => {
+    localStorage.clear()
+  }
+
   return (
     <div>
       <ul className="nav headerContainer">
@@ -21,12 +32,12 @@ const Header = (props: { userName: string }) => {
             role="button"
             aria-expanded="false"
           >
-            <span>{userFirstName}</span>
+            <span>{userName}</span>
           </a>
           <ul className="dropdown-menu">
             <li>
-              <a className="dropdown-item" href="/">
-                Signout
+              <a className="dropdown-item" href="/" onClick={handleLogout}>
+                Logout
               </a>
             </li>
           </ul>

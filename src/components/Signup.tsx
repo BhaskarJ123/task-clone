@@ -19,9 +19,12 @@ const Signup = (props: any) => {
   const [password, setPassword] = useState("");
   const [isValidEmail, setValidEmail] = useState(true);
   const [isPasswordEmpty, setPasswordEmpty] = useState(false);
-  const [userDetails, setUserDetails] = useState([]);
   const [isUserValid, setUserValid] = useState(true);
   const [createLogin, createLoginResult] = useCreateLoginMutation();
+
+  if(localStorage.getItem("UserData") !== null){
+    window.open('/dashboard',"_self");
+  }
 
   const validateEmailData = (): void => {
     let emailValidFlag = validator.isEmail(email) ? true : false;
@@ -49,14 +52,6 @@ const Signup = (props: any) => {
   };
 
   useEffect(() => {
-    if (userDetails.length !== 0 && userDetails[0] !== undefined) {
-      props.handleLogin();
-    } else if (userDetails[0] === null) {
-      setUserValid(false);
-    }
-  }, [userDetails]);
-
-  useEffect(() => {
     if (isInitialMountEmail.current) {
       validateEmailData();
     } else {
@@ -67,10 +62,12 @@ const Signup = (props: any) => {
   useEffect(() => {
     if (isInitialMountLogin.current) {
       if (createLoginResult.isSuccess === true) {
-        setUserDetails(createLoginResult.data.response);
         dispatch(addUsers(createLoginResult.data.response));
+        // console.log("Response",createLoginResult.data.response);
+        localStorage.setItem("UserData",JSON.stringify(createLoginResult.data.response));
+        window.open('/dashboard',"_self");
       } else if (createLoginResult.isError === true) {
-        setUserDetails([]);
+        setUserValid(false);
       }
     } else {
       isInitialMountLogin.current = true;

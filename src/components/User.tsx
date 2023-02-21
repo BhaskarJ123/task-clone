@@ -1,32 +1,55 @@
 import "../User.css";
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import UserCard from "./UserCard";
 import Tokens from "./Tokens";
 
-const User = (props: {
-  userData: { name: string; email: string; mobile: string };
-}) => {
-  const userCards = useSelector((state: any) => {
-    return state.user.users;
-  });
+const User = () => {
+
+  if(localStorage.getItem("UserData") === null){
+    window.open('/',"_self");
+  }
+
+  const userDataString: string|null = localStorage.getItem("UserData");
+  let userCards :any[] = [];
+
+  if(userDataString !== null){
+    userCards = JSON.parse(userDataString);
+  }
 
   const [tokenFlag, setTokenFlag] = useState(false);
   const [currentUserCard, setCurrentUserCard] = useState(userCards[0]);
-
+  // console.log(currentUserCard);
+  // console.log(userCards[1]);
+  // console.log(currentUserCard === userCards[0]);
+  // console.log(JSON.stringify(currentUserCard) === JSON.stringify(userCards[1]));
+  // console.log(currentUserCard === userCards[2]);
+  // console.log(currentUserCard === userCards[3]);
+  
   const toggleTokenFlag = () => {
     const toggledTokenFlag: boolean = tokenFlag === true ? false : true;
     setTokenFlag(toggledTokenFlag);
   };
 
   const handleNextClick = () => {
-    const newIndex: number = userCards.indexOf(currentUserCard) + 1;
+    let newIndex:number = 0;
+    for(let card of userCards){
+      if(JSON.stringify(card) === JSON.stringify(currentUserCard)){
+        newIndex = userCards.indexOf(card) + 1;
+        break;
+      }
+    }
     setCurrentUserCard(userCards[newIndex]);
   };
 
   const handlePreviousClick = () => {
-    const newIndex: number = userCards.indexOf(currentUserCard) - 1;
+    let newIndex:number = 0;
+    for(let card of userCards){
+      if(JSON.stringify(card) === JSON.stringify(currentUserCard)){
+        newIndex = userCards.indexOf(card) - 1;
+        break;
+      }
+    }
     setCurrentUserCard(userCards[newIndex]);
   };
 
@@ -37,12 +60,12 @@ const User = (props: {
           <i className="fa-solid fa-user"></i>
         </div>
         <div className="userDetails">
-          <h1>{props.userData.name.toUpperCase()}</h1>
+          <h1>{userCards[0].name.toUpperCase()}</h1>
           <h5>
-            <i className="fa-solid fa-envelope"></i> {props.userData.email}
+            <i className="fa-solid fa-envelope"></i> {userCards[0].email}
           </h5>
           <h5>
-            <i className="fa-solid fa-phone"></i> {props.userData.mobile}
+            <i className="fa-solid fa-phone"></i> {userCards[0].mobile}
           </h5>
         </div>
       </div>
@@ -53,7 +76,7 @@ const User = (props: {
             type="button"
             className="btn navigateButtons"
             onClick={handlePreviousClick}
-            disabled={userCards.indexOf(currentUserCard) <= 0}
+            disabled={JSON.stringify(currentUserCard) === JSON.stringify(userCards[0])}
           >
             &laquo;
           </button>
@@ -66,7 +89,7 @@ const User = (props: {
             className="btn navigateButtons"
             onClick={handleNextClick}
             disabled={
-              userCards.indexOf(currentUserCard) >= userCards.length - 1
+              JSON.stringify(currentUserCard) === JSON.stringify(userCards[userCards.length-1])
             }
           >
             &raquo;
