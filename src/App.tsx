@@ -2,7 +2,6 @@ import Signup from "./components/Signup";
 import User from "./components/User";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React from "react";
 import "./App.css";

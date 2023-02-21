@@ -10,7 +10,7 @@ import SignupInput from '@bhaskarj123/input-github';
 import SignupButton from "@bhaskarj123/button-github";
 import { useCreateLoginMutation } from "../redux/services/users";
 
-const Signup = (props: any) => {
+const Signup = () => {
   const dispatch = useDispatch();
 
   const isInitialMountEmail = useRef(false);
