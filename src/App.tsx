@@ -24,16 +24,6 @@ function App() {
             <Footer />
           </Route>
         </Switch>
-        {/* {!isUserLoggedIn && <Signup handleLogin={handleLogin} />}
-        {isUserLoggedIn && (
-          <div>
-              <Header userName={userData.name} />
-                <Route path="/" exact>
-                  <User userData={userData} />
-                </Route>
-              <Footer />
-          </div>
-        )} */}
       </div>
     </Router>
   );

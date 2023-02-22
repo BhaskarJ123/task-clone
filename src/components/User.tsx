@@ -19,12 +19,6 @@ const User = () => {
 
   const [tokenFlag, setTokenFlag] = useState(false);
   const [currentUserCard, setCurrentUserCard] = useState(userCards[0]);
-  // console.log(currentUserCard);
-  // console.log(userCards[1]);
-  // console.log(currentUserCard === userCards[0]);
-  // console.log(JSON.stringify(currentUserCard) === JSON.stringify(userCards[1]));
-  // console.log(currentUserCard === userCards[2]);
-  // console.log(currentUserCard === userCards[3]);
   
   const toggleTokenFlag = () => {
     const toggledTokenFlag: boolean = tokenFlag === true ? false : true;

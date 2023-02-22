@@ -1,19 +1,46 @@
 import "../Tokens.css";
-import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import {
   useCreateTokensMutation,
   useSuspendTokensMutation,
   useDeleteTokensMutation,
+  useGetTokensQuery
 } from "../redux/services/users";
 
 const Tokens = (props: any) => {
+  
+  const {
+    data: cardTokens,
+    isFetching,
+    isError,
+    isSuccess,
+    refetch
+  } = useGetTokensQuery({userID:props.userID,cardID:props.cardID}, {
+    refetchOnMountOrArgChange: true,
+  });
+  
+  
   const [tokens, setTokens] = useState([]);
   const [createTokens, createTokensResult] = useCreateTokensMutation();
   const [suspendTokens, suspendTokensResult] = useSuspendTokensMutation();
   const [deleteTokens, deleteTokensResult] = useDeleteTokensMutation();
   const [isAPILoaded, setAPILoaded] = useState(false);
+
+
+  useEffect(() => {
+    setAPILoaded(false);
+    console.log("Success",isSuccess);
+    if(isFetching){
+      setAPILoaded(false);
+    } else if(isError){
+      setAPILoaded(true);
+      setTokens([]);
+    } else if(isSuccess){
+      setAPILoaded(true);
+      setTokens(cardTokens.response);
+    }
+  }, [props, isFetching, createTokensResult, suspendTokensResult, deleteTokensResult]);
 
   const getDomainName = (url: string) => {
     let domainName = "";
@@ -42,33 +69,25 @@ const Tokens = (props: any) => {
   };
 
   const handleActivateToken = (tokenID: string | number) => {
-    createTokens(tokenID);
+    createTokens(tokenID)
+    .then(() => {
+      refetch();
+    })
   };
 
   const handleSuspendToken = (tokenID: string | number) => {
-    suspendTokens(tokenID);
+    suspendTokens(tokenID)
+    .then(() => {
+      refetch();
+    })
   };
 
   const handleDeleteToken = (tokenID: string | number) => {
-    deleteTokens(tokenID);
+    deleteTokens(tokenID)
+    .then(() => {
+      refetch();
+    })
   };
-
-  useEffect(() => {
-    setAPILoaded(false);
-    axios
-      .get(
-        `http://43.206.242.55:5000/user/${props.userID}/card/${props.cardID}/tokens`
-      )
-      .then((response) => {
-        setTokens(response.data.response);
-        setAPILoaded(true);
-      })
-      .catch((err) => {
-        setTokens([]);
-        setAPILoaded(true);
-      });
-    // useGetTokensQuery(props.userID,props.cardID);
-  }, [props, createTokensResult, suspendTokensResult, deleteTokensResult]);
 
   return (
     <div className="tokensPageContainer">
