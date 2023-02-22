@@ -4,9 +4,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://43.206.242.55:5000/" }),
+  tagTypes: ['Users'],
   endpoints: (builder) => ({
     getTokens: builder.query({
-        query: ({userID,cardID}) => `user/${userID}/card/${cardID}/tokens`
+        query: ({userID,cardID}) => `user/${userID}/card/${cardID}/tokens`,
+        providesTags: ['Users']
     }),
     createLogin: builder.mutation({
       query: ({ email, password }) => ({
@@ -15,30 +17,38 @@ export const usersApi = createApi({
         body: { email: email, password: password },
       }),
     }),
-    createTokens: builder.mutation({
+    activateTokens: builder.mutation({
       query: (id) => ({
         url: `activate/token/${id}`,
         method: "PUT",
       }),
+      invalidatesTags: ['Users']
     }),
     suspendTokens: builder.mutation({
       query: (id) => ({
         url: `suspend/token/${id}`,
         method: "PUT",
       }),
+      invalidatesTags: ['Users']
     }),
     deleteTokens: builder.mutation({
       query: (id) => ({
         url: `delete/token/${id}`,
         method: "PUT",
       }),
+      invalidatesTags: ['Users']
     }),
+    // createTokens: builder.mutation({
+    //   query: ({userID,cardID}) => ({
+    //     url: ``
+    //   })
+    // })
   }),
 });
 
 export const {
   useCreateLoginMutation,
-  useCreateTokensMutation,
+  useActivateTokensMutation,
   useSuspendTokensMutation,
   useDeleteTokensMutation,
   useGetTokensQuery

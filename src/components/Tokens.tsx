@@ -2,7 +2,7 @@ import "../Tokens.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  useCreateTokensMutation,
+  useActivateTokensMutation,
   useSuspendTokensMutation,
   useDeleteTokensMutation,
   useGetTokensQuery
@@ -15,14 +15,13 @@ const Tokens = (props: any) => {
     isFetching,
     isError,
     isSuccess,
-    refetch
   } = useGetTokensQuery({userID:props.userID,cardID:props.cardID}, {
     refetchOnMountOrArgChange: true,
   });
   
   
   const [tokens, setTokens] = useState([]);
-  const [createTokens, createTokensResult] = useCreateTokensMutation();
+  const [activateTokens, activateTokensResult] = useActivateTokensMutation();
   const [suspendTokens, suspendTokensResult] = useSuspendTokensMutation();
   const [deleteTokens, deleteTokensResult] = useDeleteTokensMutation();
   const [isAPILoaded, setAPILoaded] = useState(false);
@@ -40,7 +39,7 @@ const Tokens = (props: any) => {
       setAPILoaded(true);
       setTokens(cardTokens.response);
     }
-  }, [props, isFetching, createTokensResult, suspendTokensResult, deleteTokensResult]);
+  }, [props, isFetching, activateTokensResult, suspendTokensResult, deleteTokensResult]);
 
   const getDomainName = (url: string) => {
     let domainName = "";
@@ -69,24 +68,24 @@ const Tokens = (props: any) => {
   };
 
   const handleActivateToken = (tokenID: string | number) => {
-    createTokens(tokenID)
-    .then(() => {
-      refetch();
-    })
+    activateTokens(tokenID)
+    // .then(() => {
+    //   refetch();
+    // })
   };
 
   const handleSuspendToken = (tokenID: string | number) => {
     suspendTokens(tokenID)
-    .then(() => {
-      refetch();
-    })
+    // .then(() => {
+    //   refetch();
+    // })
   };
 
   const handleDeleteToken = (tokenID: string | number) => {
     deleteTokens(tokenID)
-    .then(() => {
-      refetch();
-    })
+    // .then(() => {
+    //   refetch();
+    // })
   };
 
   return (
