@@ -65,7 +65,6 @@ const Signup = () => {
     if (isInitialMountLogin.current) {
       if (createLoginResult.isSuccess === true) {
         dispatch(addUsers(createLoginResult.data.response));
-        // console.log("Response",createLoginResult.data.response);
         localStorage.setItem("UserData",JSON.stringify(createLoginResult.data.response));
         window.open('/dashboard',"_self");
       } else if (createLoginResult.isError === true) {

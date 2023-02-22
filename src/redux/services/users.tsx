@@ -38,11 +38,14 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['Users']
     }),
-    // createTokens: builder.mutation({
-    //   query: ({userID,cardID}) => ({
-    //     url: ``
-    //   })
-    // })
+    createTokens: builder.mutation({
+      query: ({userID,cardID,domainName}) => ({
+        url: `http://43.206.242.55:5000/user/${userID}/card/${cardID}/create/token`,
+        method: "POST",
+        body: {domainName: domainName}
+      }),
+      invalidatesTags: ['Users']
+    })
   }),
 });
 
@@ -51,5 +54,6 @@ export const {
   useActivateTokensMutation,
   useSuspendTokensMutation,
   useDeleteTokensMutation,
+  useCreateTokensMutation,
   useGetTokensQuery
 } = usersApi;
