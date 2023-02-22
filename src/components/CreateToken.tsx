@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import "../CreateToken.css";
 import { useCreateTokensMutation } from "../redux/services/users";
@@ -7,7 +6,6 @@ import React from "react";
 const CreateToken = (props: {
   userID: string;
   cardID: string;
-  toggleTokenFlag: () => void;
 }) => {
   const [createTokenMessage, setCreateTokenMessage] = useState("");
   const [createTokens,createTokensResult] = useCreateTokensMutation();
@@ -40,30 +38,6 @@ const CreateToken = (props: {
       cardID: parseInt(props.cardID),
       domainName: domainName
     });
-    // axios
-    //   .post(
-    //     `http://43.206.242.55:5000/user/${parseInt(
-    //       props.userID
-    //     )}/card/${parseInt(props.cardID)}/create/token`,
-    //     {
-    //       domainName: domainName,
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log(response);
-    //     setCreateTokenMessage("Token created successfully!");
-    //     props.toggleTokenFlag();
-    //     setTimeout(() => {
-    //       setCreateTokenMessage("");
-    //     }, 2000);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setCreateTokenMessage("Token already exists!");
-    //     setTimeout(() => {
-    //       setCreateTokenMessage("");
-    //     }, 2000);
-    //   });
   };
 
   useEffect(() => {

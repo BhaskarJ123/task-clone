@@ -11,19 +11,14 @@ const User = () => {
   }
 
   const userDataString: string|null = localStorage.getItem("UserData");
+  
   let userCards :any[] = [];
-
+  
   if(userDataString !== null){
     userCards = JSON.parse(userDataString);
   }
-
-  const [tokenFlag, setTokenFlag] = useState(false);
-  const [currentUserCard, setCurrentUserCard] = useState(userCards[0]);
   
-  const toggleTokenFlag = () => {
-    const toggledTokenFlag: boolean = tokenFlag === true ? false : true;
-    setTokenFlag(toggledTokenFlag);
-  };
+  const [currentUserCard, setCurrentUserCard] = useState(userCards[0]);
 
   const handleNextClick = () => {
     let newIndex:number = 0;
@@ -76,7 +71,6 @@ const User = () => {
           </button>
           <UserCard
             userCardData={currentUserCard}
-            toggleTokenFlag={toggleTokenFlag}
           />
           <button
             type="button"
@@ -92,7 +86,6 @@ const User = () => {
         <Tokens
           userID={currentUserCard.user_id}
           cardID={currentUserCard.id}
-          tokenFlag={tokenFlag}
         />
       </div>
     </div>

@@ -68,24 +68,15 @@ const Tokens = (props: any) => {
   };
 
   const handleActivateToken = (tokenID: string | number) => {
-    activateTokens(tokenID)
-    // .then(() => {
-    //   refetch();
-    // })
+    activateTokens(tokenID);
   };
 
   const handleSuspendToken = (tokenID: string | number) => {
-    suspendTokens(tokenID)
-    // .then(() => {
-    //   refetch();
-    // })
+    suspendTokens(tokenID);
   };
 
   const handleDeleteToken = (tokenID: string | number) => {
-    deleteTokens(tokenID)
-    // .then(() => {
-    //   refetch();
-    // })
+    deleteTokens(tokenID);
   };
 
   return (

@@ -29,7 +29,6 @@ const UserCard = (props: any) => {
         <CreateToken
           userID={props.userCardData.user_id}
           cardID={props.userCardData.id}
-          toggleTokenFlag={props.toggleTokenFlag}
         />
         {isCardNoHidden && (
           <button
