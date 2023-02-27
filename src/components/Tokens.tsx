@@ -28,6 +28,7 @@ const Tokens = (props: any) => {
 
 
   useEffect(() => {
+    console.log("This is a test");
     setAPILoaded(false);
     console.log("Success",isSuccess);
     if(isFetching){
